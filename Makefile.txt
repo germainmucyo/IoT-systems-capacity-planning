@@ -1,0 +1,48 @@
+VENV    = $(HOME)/iot_dashboard/venv
+PYTHON  = $(VENV)/bin/python
+PIP     = $(VENV)/bin/pip
+DATA    = simulation_results.csv
+
+.PHONY: all setup simulate run clean reset
+
+## Default: setup + simulate + run
+all: setup simulate run
+
+## Create venv and install dependencies
+setup:
+	@echo ">>> Setting up virtual environment..."
+	@python3 -m venv $(VENV)
+	@$(PIP) install --quiet simpy numpy pandas scipy dash plotly
+	@echo ">>> Setup complete."
+
+## Run the grid simulation to generate CSV (only if CSV missing)
+simulate: $(DATA)
+
+$(DATA):
+	@echo ">>> Running simulation grid (this takes ~3-5 min)..."
+	@$(PYTHON) grid_simulation.py
+	@echo ">>> Data saved to $(DATA)"
+
+## Force re-run simulation even if CSV exists
+resimulate:
+	@echo ">>> Re-running simulation grid..."
+	@rm -f $(DATA)
+	@$(PYTHON) grid_simulation.py
+	@echo ">>> Data saved to $(DATA)"
+
+## Launch the Dash app
+run:
+	@echo ">>> Starting dashboard at http://127.0.0.1:8050"
+	@$(PYTHON) app.py
+
+## Remove generated data
+clean:
+	@echo ">>> Removing simulation data..."
+	@rm -f $(DATA)
+	@echo ">>> Done."
+
+## Remove everything including venv
+reset: clean
+	@echo ">>> Removing virtual environment..."
+	@rm -rf $(VENV)
+	@echo ">>> Done."
