@@ -1,12 +1,3 @@
-# IoT Edge-Cloud Performance Explorer
-
-**EECE 5642 — Data Visualization, Spring 2026**
-Northeastern University — Department of Electrical & Computer Engineering
-
-**Author:** Germain Mucyo | mucyo.g@northeastern.edu
-
----
-
 ## Overview
 
 An interactive capacity planning dashboard for IoT edge-cloud systems. The tool simulates an IoT pipeline (devices → gateway → edge/cloud) using discrete-event simulation and visualizes performance tradeoffs through an interactive Dash web application.
@@ -138,11 +129,15 @@ plotly
 Installed automatically via `make setup`.
 
 ---
-
+## Note 
+```
+This project is still being actively conducted. Ongoing work includes 
+improving the traffic model to support bursty ON/OFF arrivals, extending the queueing model 
+to multi-server configurations (M/M/c), and incorporating real IoT trace data for model 
+validation. The dashboard will also be extended with a live simulation feature allowing users 
+to run custom parameter combinations directly from the interface.
 ## Acknowledgements
 
-This project was developed for EECE 5642 Data Visualization at Northeastern University.
+**Author:** Germain Mucyo | mucyo.g@northeastern.edu
 
-## License
 
-MIT License — free to use and modify with attribution.
